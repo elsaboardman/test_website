@@ -1,0 +1,70 @@
+---
+title: "Phoenix Dashboard"
+author: Elsa Boardman
+format:
+  dashboard:
+    logo: "https://t3.ftcdn.net/jpg/05/12/88/20/240_F_512882021_fCx3ONBz7fbnR3sqUjhG0RLCEit9CTtA.jpg"
+    theme: sketchy
+    embed-resources: true
+---
+# Data
+
+```{r}
+#install.packages("DT")
+#install.packages("plotly")
+library(tidyverse)
+library(DT)
+library(plotly)
+library("ggplot2")
+```
+
+```{r}
+id <- "1zoYDEdrJoRNTVJXG5BO4ZkSDHWg5XFpG"
+phx_dat <- read_csv2(sprintf("https://docs.google.com/uc?id=%s&export=download", id))
+```
+
+## Row 1 {height=20%}
+
+::: {.card title="Phoenix Data Information"}
+This is a test Quarto Dashboard about data from Phoenix, Arizona
+:::
+
+## Row 2 {height=80%}
+
+### Row 2 Column 1
+```{r}
+#| title: Phoenix Age vs. Car Ownership
+
+plot1 <- phx_dat |>
+  ggplot(aes(x = MEDAGE, y = QNOAUTO)) +
+  geom_point() +
+  labs(
+    x = "Age",
+    y = "Percent of people who DON'T own cars")
+
+plot1 |> ggplotly ()
+```
+
+### Row 2 Column 2
+
+```{r}
+#| title: Phoenix Data
+phx_dat |> datatable()
+```
+
+
+# Notes
+
+
+## Row 1 {height=40%}
+::: {.card title="About the Author"}
+Elsa Boardman made this aweosme Quarto Dashboard. She is a first-year student at University of Washington interested in pursuing Geography and Data science. In her free time, she enjoys dancing, spending quality time with friends/family, and journaling.
+:::
+
+## Row 2 {height=60%}
+::: {.card titile="Information of the Data Set"}
+Phoenix is a car-depended society, so it can be seen in the data how majority of adults do own cars. The percent of people who don't own cars is mostly below 10%. This aligns with the inormation in this article https://www.azfamily.com/2025/10/06/phoenix-metro-ranked-low-walkability-lawmaker-takes-transit-challenge/ which discusses the car-dependence of Phoenix as a whole.
+:::
+
+
+
